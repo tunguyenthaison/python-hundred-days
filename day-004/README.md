@@ -22,3 +22,4 @@ From there you will need to figure out:
 
 * Add validation for use input with exception handing for 0, 1, 2 
 * Not yet adding exception handing for Yes/No continuing game
+* PrettyTable

@@ -1,5 +1,35 @@
 import random
 from os import system, name
+from prettytable import PrettyTable
+
+rock = '''
+        _______
+    ---'   ____)
+        (_____)
+        (_____)
+        (____)
+    ---.__(___)
+    '''
+
+paper = '''
+        _______
+    ---'   ____)____
+            ______)
+            _______)
+            _______)
+    ---.__________)
+    '''
+
+scissors = '''
+        _______
+    ---'   ____)____
+            ______)
+        __________)
+        (____)
+    ---.__(___)
+    '''
+game_dict = {0: rock, 1: paper, 2: scissors,}
+choice_names = {0: 'rock', 1: 'paper', 2: 'scissors',}
 
 def validate_input_game()->int:
     """Ask the user to input either 0, 1 or 2. Repeat if getting invalid input.
@@ -34,57 +64,48 @@ def validate_input_yesno()->bool:
     return (cont[0].lower() == 'y')
 
 
+def print_PlayerVsComputer(player_choice, computer_choice):
+    """Print to command line the ascii art for Rock, Paper, Scissors as a table for player and computer
+
+    Args:
+        player (int): 0, 1, or 2 - the choice of Player
+        computer (int): 0, 1, or 2 - the choice of Computer
+    """
+    x = PrettyTable(border=True, padding_width=5)
+    player_str = str("You play".ljust(35))
+    computer_str = str("Computer play".ljust(35))
+    x.field_names = [player_str, computer_str]
+    x.align[player_str] = "l"
+    x.align[computer_str] = "l"
+    x.add_row([choice_names[player_choice], choice_names[computer_choice]])
+    x.add_row([game_dict[player_choice], game_dict[computer_choice]])
+    print(x)
+    
+
+def print_PlayerVsComputer_old(player_choice, computer_choice):
+    """Print to command line the ascii art for Rock, Paper, Scissors as a table for player and computer
+
+    Args:
+        player (int): 0, 1, or 2 - the choice of Player
+        computer (int): 0, 1, or 2 - the choice of Computer
+    """
+    print(f"You play: {choice_names[player_choice]}\n" + game_dict[player_choice])
+    print(f"Computer play: {choice_names[computer_choice]}\n" + game_dict[computer_choice])
+
 def RockPaperScissors_round()->int:
     """A round of Rock, Paper, Scissors game
 
     Returns:
         int: 1 if player win, -1 if computer win
-    """
-    
-    rock = '''
-        _______
-    ---'   ____)
-        (_____)
-        (_____)
-        (____)
-    ---.__(___)
-    '''
-
-    paper = '''
-        _______
-    ---'   ____)____
-            ______)
-            _______)
-            _______)
-    ---.__________)
-    '''
-
-    scissors = '''
-        _______
-    ---'   ____)____
-            ______)
-        __________)
-        (____)
-    ---.__(___)
-    '''
-    
-    game_dict = {
-        0: rock,
-        1: paper,
-        2: scissors,
-    }
-    choice_names = {
-        0: 'rock',
-        1: 'paper',
-        2: 'scissors',
-    }
-    
+    """    
     exit_round = False 
     while exit_round is False:
         player_choice = validate_input_game()
-        print(f"You play: {choice_names[player_choice]}\n" + game_dict[player_choice])
         computer_choice = random.randint(0, 2)
-        print(f"Computer play: {choice_names[computer_choice]}\n" + game_dict[computer_choice])
+        
+        # print_PlayerVsComputer_old(player_choice, computer_choice)
+        print_PlayerVsComputer(player_choice, computer_choice)
+        
         if player_choice == computer_choice:
             print("Tie! Go again!")
         else:
@@ -105,21 +126,24 @@ def RockPaperScissors_round()->int:
                     return -1
                 
 
-def RockPaperScissors():
-    banner = '''
-     █████╗ ███████╗ ██████╗██╗██╗                                                                                                       
-    ██╔══██╗██╔════╝██╔════╝██║██║                                                                                                       
-    ███████║███████╗██║     ██║██║                                                                                                       
-    ██╔══██║╚════██║██║     ██║██║                                                                                                       
-    ██║  ██║███████║╚██████╗██║██║                                                                                                       
-    ╚═╝  ╚═╝╚══════╝ ╚═════╝╚═╝╚═╝                                                                                                       
-                                                                                                                                        
-    ██████╗  ██████╗  ██████╗██╗  ██╗██████╗  █████╗ ██████╗ ███████╗██████╗ ███████╗ ██████╗██╗███████╗███████╗ ██████╗ ██████╗ ███████╗
-    ██╔══██╗██╔═══██╗██╔════╝██║ ██╔╝██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔══██╗██╔════╝██╔════╝██║██╔════╝██╔════╝██╔═══██╗██╔══██╗██╔════╝
-    ██████╔╝██║   ██║██║     █████╔╝ ██████╔╝███████║██████╔╝█████╗  ██████╔╝███████╗██║     ██║███████╗███████╗██║   ██║██████╔╝███████╗
-    ██╔══██╗██║   ██║██║     ██╔═██╗ ██╔═══╝ ██╔══██║██╔═══╝ ██╔══╝  ██╔══██╗╚════██║██║     ██║╚════██║╚════██║██║   ██║██╔══██╗╚════██║
-    ██║  ██║╚██████╔╝╚██████╗██║  ██╗██║     ██║  ██║██║     ███████╗██║  ██║███████║╚██████╗██║███████║███████║╚██████╔╝██║  ██║███████║
-    ╚═╝  ╚═╝ ╚═════╝  ╚═════╝╚═╝  ╚═╝╚═╝     ╚═╝  ╚═╝╚═╝     ╚══════╝╚═╝  ╚═╝╚══════╝ ╚═════╝╚═╝╚══════╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝
+def RockPaperScissors()->None:
+    """The Rock, Paper, Scissors game.
+    """
+    banner = '''                                                                     
+    ██████╗  ██████╗  ██████╗██╗  ██╗    ██████╗  █████╗ ██████╗ ███████╗██████╗     
+    ██╔══██╗██╔═══██╗██╔════╝██║ ██╔╝    ██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔══██╗    
+    ██████╔╝██║   ██║██║     █████╔╝     ██████╔╝███████║██████╔╝█████╗  ██████╔╝    
+    ██╔══██╗██║   ██║██║     ██╔═██╗     ██╔═══╝ ██╔══██║██╔═══╝ ██╔══╝  ██╔══██╗    
+    ██║  ██║╚██████╔╝╚██████╗██║  ██╗    ██║     ██║  ██║██║     ███████╗██║  ██║    
+    ╚═╝  ╚═╝ ╚═════╝  ╚═════╝╚═╝  ╚═╝    ╚═╝     ╚═╝  ╚═╝╚═╝     ╚══════╝╚═╝  ╚═╝    
+                                                                                    
+    ███████╗ ██████╗██╗███████╗███████╗ ██████╗ ██████╗ ███████╗                     
+    ██╔════╝██╔════╝██║██╔════╝██╔════╝██╔═══██╗██╔══██╗██╔════╝                     
+    ███████╗██║     ██║███████╗███████╗██║   ██║██████╔╝███████╗                     
+    ╚════██║██║     ██║╚════██║╚════██║██║   ██║██╔══██╗╚════██║                     
+    ███████║╚██████╗██║███████║███████║╚██████╔╝██║  ██║███████║                     
+    ╚══════╝ ╚═════╝╚═╝╚══════╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝                     
+                                                                                 
     '''
     print(banner)
     print("Welcome to the Rock, Paper, Scissors game!")
@@ -159,3 +183,4 @@ def clear():
         
 if __name__ == "__main__":
     RockPaperScissors()
+    

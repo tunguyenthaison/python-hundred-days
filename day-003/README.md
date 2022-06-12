@@ -1,6 +1,6 @@
 # python-hundred-days
 
-## Day 001: Band name generator
+## Day 003: Band name generator
 
 ---
 
