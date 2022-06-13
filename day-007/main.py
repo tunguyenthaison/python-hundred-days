@@ -1,5 +1,7 @@
+# hangman game
+from random_word import RandomWords
+from icecream import ic
 
-from unicodedata import name
 
 def validate_input(current_guess) -> str:
     """Ask the user to input a character. Repeat if getting invalid input.
@@ -9,42 +11,44 @@ def validate_input(current_guess) -> str:
     """
     valid_input = False
     while not valid_input:
-        while True:
-            try:
-                guess = str(input("Please enter a guess character: "))[0]
-                break
-            except ValueError:
-                print("Oops! That was not a valid number! Try again...")
+        guess = str(input("Please enter a guess character: "))[0]
         if guess.lower().isalpha():
-            valid_input = True
-    return guess                
+            if guess.lower() not in current_guess:
+                valid_input = True
+            else:
+                print("Oops! You have already guessed this character! Try"
+                      "again...")
+        else:
+            print("Oops! That was not a valid character! Try again...")
+    return guess
 
 
-def hangman(word) -> bool:
-    """_summary_
+def hangman_word(word) -> bool:
+    """The hangman game: guessing word with the given word.
 
     Args:
-        word (_type_): _description_
+        word (str): the word that will be guessed
 
     Returns:
-        bool: _description_
+        bool: True if guessing it correctly given 5 tries, False otherwise
     """
     score = 0
+    history_guess = []
     current_guess = ['_' for c in word]
     while score < 5:
-        guess_char = validate_input()
-        while guess_char in current_guess:  # if repeating a character already guessed then it is an invalid guess
-            print(f"Chatacter {guess_char} has already guessed, please enter a different character")  
-            guess_char = validate_input()
+        guess_char = validate_input(current_guess)
         isTrue, current_guess = check_and_show(word, current_guess, guess_char)
-        if not isTrue or guess_char 
+        if not isTrue:
             score += 1
+            print("Oops! You guessed wrongly!")
         if current_guess == word:
             print("You guessed correctly the word: You win!")
             return True
+        history_guess.append(guess_char)
         print(f"The current word: {current_guess}")
+        print(f"History of guess: {history_guess}")
         print(f"The current score: {score}")
-    print("Out of guesses! You lose!")
+    print(f"Out of guesses! You lose! The correct word is {word}")
     return False
 
 
@@ -66,20 +70,37 @@ def check_and_show(word, current_guess, guess_char) -> tuple[bool, str]:
     word_show_list = [c for c in current_guess]
     if guess_char in word:
         nr_char = word.count(guess_char)
-        for char_count in range(0, nr_char):
-            ind_char = word.index(guess_char, nr_char)
-            word_show_list[ind_char] = guess_char
-            word_show = "".join(word_show_list)
+        indices_guess_char = []
+        for i, c in enumerate(word):
+            if c == guess_char:
+                indices_guess_char.append(i)
+        for ind in indices_guess_char:
+            word_show_list[ind] = guess_char
+        word_show = "".join(word_show_list)
         return (True, word_show)
     else:
         return (False, "".join(word_show_list))
 
 
-if __name__ == "__main__":
-    # hangman()
-    word = 'recitation'
-    # current_guess = ['_' for c in word]
-    # isTrue, word_show = check_and_show(word, current_guess, 'c')
-    # print(word_show)
-    hangman(word)
+def hangman_game() -> None:
+    """The hanging man game with an internal or external database of words.
+       Using the Python library `random-word`
+    """
 
+    random_word_instance = RandomWords()
+    word = random_word_instance.get_random_word()
+    hangman_word(word.lower())
+
+
+if __name__ == "__main__":
+    # hangman_word(word)
+    banner = """
+    ██╗  ██╗ █████╗ ███╗   ██╗ ██████╗       ███╗   ███╗ █████╗ ███╗   ██╗
+    ██║  ██║██╔══██╗████╗  ██║██╔════╝       ████╗ ████║██╔══██╗████╗  ██║
+    ███████║███████║██╔██╗ ██║██║  ███╗█████╗██╔████╔██║███████║██╔██╗ ██║
+    ██╔══██║██╔══██║██║╚██╗██║██║   ██║╚════╝██║╚██╔╝██║██╔══██║██║╚██╗██║
+    ██║  ██║██║  ██║██║ ╚████║╚██████╔╝      ██║ ╚═╝ ██║██║  ██║██║ ╚████║
+    ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝       ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝                                                                  
+    """
+    print(banner)
+    hangman_game()
