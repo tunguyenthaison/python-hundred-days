@@ -1,7 +1,9 @@
 # hangman game
+from unittest import result
 from random_word import RandomWords
 from hangman_art import banner, hangman_stage
-from icecream import ic
+from prettytable import PrettyTable
+from utils import clear
 
 MAX_LIVES = 8
 
@@ -21,50 +23,50 @@ def validate_input(current_guess, history_guess) -> str:
 
     valid_input = False
     while not valid_input:
-        guess = str(input("Please enter a guess character: "))[0]
+        while True:
+            try:
+                guess = str(input("Please enter a guess character: "))[0]
+                break
+            except IndexError:
+                print("Oops! That was not a valid character! Try again...")
         if guess.lower().isalpha():
             if ((guess.lower() not in current_guess) and
                     (guess.lower() not in history_guess)):
                 valid_input = True
             else:
                 print("Oops! You have already guessed this character! Try"
-                      "again...")
+                      " again...")
         else:
             print("Oops! That was not a valid character! Try again...")
     return guess
 
 
-def hangman_word(word) -> bool:
-    """The hangman game: guessing word with the given word.
+def hangman_round(word,
+                  current_guess,
+                  history_guess,
+                  stage) -> tuple[bool, str, int]:
+    """One single round of the hangman game. Given the current states of the
+       game, guessing word with the given word, current guess, history, stage
+       return True/False for guessing correctly or not, the new current_guess
+       and the stage afterward and the guessed character.
 
     Args:
-        word (str): the word that will be guessed
+        word (str): the word that going to be guessed
+        current_guess (str): current guess with correct letters revealed
+        history_guess (list[str]): list of historical guessed letters
+        stage (_type_): stage of lives, 0 - 7
 
     Returns:
-        bool: True if guessing it correctly given 5 tries, False otherwise
+        tuple[bool, str, int, str]: True/False for guessing correctly or not,
+        the new current_guess and the stage afterward and the guessed character
     """
-    stage = 0
-    history_guess = []
-    current_guess = ['_' for c in word]
-    while stage < MAX_LIVES:
-        print('-------------------------------------------------')
-        guess_char = validate_input(current_guess, history_guess)
-        isTrue, current_guess = check_and_show(word, current_guess, guess_char)
-        if not isTrue:
-            stage += 1
-            print(f"Oops! You guessed wrongly! Letter {guess_char} is not"
-                  "in the word. You lose a life.")
-        if current_guess == word:
-            print(f"You guessed correctly the word. You win!" 
-                  "The word is == {word} ==!")
-            return True
-        history_guess.append(guess_char)
-        print(f"The current word: {current_guess}")
-        print(f"History of guess: {history_guess}")
-        print(f"The current stage: {stage}")
-        print(hangman_stage[stage])
-    print(f"Out of guesses! You lose! The correct word is {word}")
-    return False
+    guess_char = validate_input(current_guess, history_guess)
+    isTrue, current_guess = check_and_show(word, current_guess, guess_char)
+    if not isTrue:
+        stage += 1
+        print(f"Oops! You guessed wrongly! Letter {guess_char} is not"
+              " in the word. You lose a life.")
+    return (isTrue, current_guess, stage, guess_char)
 
 
 def check_and_show(word, current_guess, guess_char) -> tuple[bool, str]:
@@ -103,16 +105,56 @@ def hangman_game() -> None:
     """The hanging man game with an internal or external database of words.
        Using the Python library `random-word` for generating a word to guess.
     """
-
+    print(banner)
     random_word_instance = RandomWords()
     long_word = random_word_instance.get_random_word()
-    word = long_word.split(" ")[0]
-    print(f"Phh! The word is {word}")
-    hangman_word(word.lower())
+    while long_word is None:
+        long_word = random_word_instance.get_random_word()
+    if "-" in long_word:
+        word = long_word.split("-")[0]
+    else:
+        word = long_word.split(" ")[0]
+    # set up the game
+    stage = 0
+    history_guess = []
+    current_guess = "".join(['_' for c in word])
+    last_guess_bool = None
+    last_guess_char = None
+    while stage < MAX_LIVES:
+        clear()
+        print(banner)
+        print('*************************************************************')
+        print(f"Phh! The word is {word}")
+        # make PrettyTable
+        x = PrettyTable(border=True, padding_width=5)
+        art_stage_fieldname = str("STAGE".ljust(15))
+        art_infor_fieldname = str("INFO".ljust(35))
+        x.field_names = [art_stage_fieldname, art_infor_fieldname]
+        x.align[art_stage_fieldname] = "l"
+        x.align[art_infor_fieldname] = "l"
+        stage_str = hangman_stage[stage]
+        infor_str = "\n\n" +\
+                    f"GUESS      : {current_guess}\n\n" +\
+                    f"HISTORY    : {''.join(history_guess)}\n\n" +\
+                    f"STAGE      : {stage}\n\n" +\
+                    f"LAST GUESS : {last_guess_char} - {last_guess_bool}"
+        x.add_row([stage_str, infor_str])
+        print(x)
+        # print(hangman_stage[stage])
+        # print(f"GUESS  : {current_guess}")
+        # print(f"HISTORY: {history_guess}")
+        # print(f"STAGE  : {stage}")
+        # processing result of the round
+        result_round = hangman_round(word, current_guess, history_guess, stage)
+        isTrue, current_guess, stage, guess_char = result_round
+        history_guess.append(guess_char)
+        if current_guess == word:
+            print(f"YOU WIN, THE WORD IS == {word} ==!")
+            return
+        last_guess_bool = isTrue
+        last_guess_char = guess_char
+    print(f"GAME OVER! YOU LOSE! THE WORD IS == {word} ==!")
 
 
 if __name__ == "__main__":
-    print(banner)
     hangman_game()
-    # for i in range(0, MAX_LIVES):
-    #     print(hangman_stage[i])
