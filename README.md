@@ -7,3 +7,7 @@ A repo for learning the course 100 days with Python by Angela Yu
 * Day 004: randomisation
     - Added some simple exception handling for entering 0, 1, 2 and Yes/No
     - Publish [repl](https://replit.com/@tunguyenthaison/RockPaperScissorsASCII?v=1)
+* Day 005: randomisation with `random.sample` and `random.choices`
+* Day 006: functions
+* Day 007: condition - the hangman game with ascii art
+* Day 008: 
