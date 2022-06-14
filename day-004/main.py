@@ -28,10 +28,11 @@ scissors = '''
         (____)
     ---.__(___)
     '''
-game_dict = {0: rock, 1: paper, 2: scissors,}
-choice_names = {0: 'rock', 1: 'paper', 2: 'scissors',}
+game_dict = {0: rock, 1: paper, 2: scissors, }
+choice_names = {0: 'rock', 1: 'paper', 2: 'scissors', }
 
-def validate_input_game()->int:
+
+def validate_input_game() -> int:
     """Ask the user to input either 0, 1 or 2. Repeat if getting invalid input.
 
     Returns:
@@ -41,7 +42,9 @@ def validate_input_game()->int:
     while not valid_input:
         while True:
             try:
-                player_choice = int(input("What do you choose? Type 0 for Rock, 1 for Paper or 2 for Scissors. "))
+                player_choice = int(
+                    input("What do you choose? Type 0 for Rock,"
+                          "1 for Paper or 2 for Scissors. "))
                 break
             except ValueError:
                 print("Oops! That was not a valid number! Try again...")
@@ -50,7 +53,7 @@ def validate_input_game()->int:
     return player_choice
 
 
-def validate_input_yesno()->bool:
+def validate_input_yesno() -> bool:
     """Ask the user to input either Yes or No. Repeat if getting invalid input to continue the game or not.
 
     Returns:
@@ -80,7 +83,7 @@ def print_PlayerVsComputer(player_choice, computer_choice):
     x.add_row([choice_names[player_choice], choice_names[computer_choice]])
     x.add_row([game_dict[player_choice], game_dict[computer_choice]])
     print(x)
-    
+
 
 def print_PlayerVsComputer_old(player_choice, computer_choice):
     """Print to command line the ascii art for Rock, Paper, Scissors as a table for player and computer
@@ -89,23 +92,26 @@ def print_PlayerVsComputer_old(player_choice, computer_choice):
         player (int): 0, 1, or 2 - the choice of Player
         computer (int): 0, 1, or 2 - the choice of Computer
     """
-    print(f"You play: {choice_names[player_choice]}\n" + game_dict[player_choice])
-    print(f"Computer play: {choice_names[computer_choice]}\n" + game_dict[computer_choice])
+    print(
+        f"You play: {choice_names[player_choice]}\n" + game_dict[player_choice])
+    print(
+        f"Computer play: {choice_names[computer_choice]}\n" + game_dict[computer_choice])
 
-def RockPaperScissors_round()->int:
+
+def RockPaperScissors_round() -> int:
     """A round of Rock, Paper, Scissors game
 
     Returns:
         int: 1 if player win, -1 if computer win
-    """    
-    exit_round = False 
+    """
+    exit_round = False
     while exit_round is False:
         player_choice = validate_input_game()
         computer_choice = random.randint(0, 2)
-        
+
         # print_PlayerVsComputer_old(player_choice, computer_choice)
         print_PlayerVsComputer(player_choice, computer_choice)
-        
+
         if player_choice == computer_choice:
             print("Tie! Go again!")
         else:
@@ -117,19 +123,19 @@ def RockPaperScissors_round()->int:
                 else:
                     print("You win! 🎉")
                     return 1
-            else: # player_choice > computer_choice
+            else:  # player_choice > computer_choice
                 if abs(player_choice - computer_choice) == 1:
                     print("You win! 🎉")
                     return 1
                 else:
                     print("Computer win!")
                     return -1
-                
 
-def RockPaperScissors()->None:
+
+def RockPaperScissors() -> None:
     """The Rock, Paper, Scissors game.
     """
-    banner = '''                                                                     
+    banner = '''
     ██████╗  ██████╗  ██████╗██╗  ██╗    ██████╗  █████╗ ██████╗ ███████╗██████╗     
     ██╔══██╗██╔═══██╗██╔════╝██║ ██╔╝    ██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔══██╗    
     ██████╔╝██║   ██║██║     █████╔╝     ██████╔╝███████║██████╔╝█████╗  ██████╔╝    
@@ -142,8 +148,7 @@ def RockPaperScissors()->None:
     ███████╗██║     ██║███████╗███████╗██║   ██║██████╔╝███████╗                     
     ╚════██║██║     ██║╚════██║╚════██║██║   ██║██╔══██╗╚════██║                     
     ███████║╚██████╗██║███████║███████║╚██████╔╝██║  ██║███████║                     
-    ╚══════╝ ╚═════╝╚═╝╚══════╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝                     
-                                                                                 
+    ╚══════╝ ╚═════╝╚═╝╚══════╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝                                                                                     
     '''
     print(banner)
     print("Welcome to the Rock, Paper, Scissors game!")
@@ -162,16 +167,17 @@ def RockPaperScissors()->None:
             player_scores += 1
         else:
             computer_scores += 1
-        
+
         #  Validate input from user
         isContinue = validate_input_yesno()
-        
+
     print("-----------------------------------------------------------")
-    print(f"Game end! Your scores: {player_scores} v.s. Computer scores: {computer_scores}")
+    print(
+        f"Game end! Your scores: {player_scores} v.s. Computer scores: {computer_scores}")
 
 
 def clear():
-    """Clear the command promt 
+    """Clear the command promt
     """
     # for Window
     if name == 'nt':
@@ -179,8 +185,7 @@ def clear():
     # for Mac and Linux
     else:
         _ = system('clear')
-        
-        
+
+
 if __name__ == "__main__":
     RockPaperScissors()
-    
