@@ -1,8 +1,14 @@
 # python-hundred-days
 A repo for learning the course 100 days with Python by Angela Yu
 ---
-Diagram plotting: https://app.diagrams.net/
 
+## Resources
+- Diagram plotting: `https://app.diagrams.net/`
+- ASCII art: `https://ascii.co.uk/animated/`
+- ASCII banner: `https://manytools.org/hacker-tools/ascii-banner/`
+
+
+## Record
 
 * Day 001: input and print functions, string manipulation
 * Day 002: data types, numbers, operations, type conversion, f-Strings
@@ -13,4 +19,5 @@ Diagram plotting: https://app.diagrams.net/
 * Day 005: randomisation with `random.sample` and `random.choices`
 * Day 006: functions
 * Day 007: condition - the hangman game with ascii art
-* Day 008: 
+* Day 008: more on functions
+
