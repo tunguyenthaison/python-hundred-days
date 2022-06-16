@@ -1,7 +1,6 @@
 # utilities for Ceasar-cipher
 import string
 from os import system, name
-from prettytable import PrettyTable
 
 alphabet_string = string.ascii_lowercase
 alphabet_list = list(alphabet_string)

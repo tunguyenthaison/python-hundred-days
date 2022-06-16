@@ -13,7 +13,8 @@ def encrypt_v2(text, shift) -> str:
     Returns:
         str: text after being shifted
     """
-    shift_c = lambda c: alphabet_list[(alphabet_list.index(c) + shift) % len(alphabet_list)]
+    shift_c = (lambda c: alphabet_list[(alphabet_list.index(c) + shift) %
+               len(alphabet_list)])
     return_text = "".join([shift_c(c) for c in text])
     return return_text
 
