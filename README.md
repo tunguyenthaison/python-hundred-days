@@ -21,4 +21,6 @@ A repo for learning the course 100 days with Python by Angela Yu
 * Day 007: condition - the hangman game with ascii art
 * Day 008: more on functions
 * Day 009: dictionaries, nesting
+* Day 010: nested loops, functions with outputs
+* Day 011: Blackjack game
 
