@@ -3,7 +3,6 @@
 import arts
 import utils
 import random 
-import numpy as np
 from icecream import ic
 
 CARDS = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
@@ -39,6 +38,7 @@ def compare_blackjack(player, computer) -> int:
         int: -1 if the player loses, 0 if tie and 1 if the player wins and None 
         if either of them has blackjack
     """
+
     if player == computer:
         return 0
     if [player, computer] == ['natural', 'super']:
@@ -63,12 +63,15 @@ def blackjack_game() -> tuple[int, list[str], list[str]]:
         list[str]: final hand of the player
         list[str]: final hand of the computer
     """
+    print(arts.LOGO)
     current_deck = utils.DECK_OF_CARDS.copy()
     player_hand, computer_hand = [], []
     player_score, computer_score = 0, 0
     # withdraw 2 cards for player
     current_deck, player_hand = step(2, current_deck, player_hand)
     player_blackjack_string, player_score = utils.get_score(player_hand)
+    print(f'Your cards are {player_hand}, score {player_score}')
+    
     # withdraw 2 cards for computer
     current_deck, computer_hand = step(2, current_deck, computer_hand)
     computer_blackjack_string, computer_score = utils.get_score(computer_hand)
@@ -80,10 +83,10 @@ def blackjack_game() -> tuple[int, list[str], list[str]]:
     # computer_hand = ['4-diamonds', '2-clubs']
     # computer_blackjack_string, computer_score = utils.get_score(computer_hand)
 
-    ic(player_hand, player_blackjack_string, player_score)
-    ic(computer_hand, computer_blackjack_string, computer_score)
+    # ic(player_hand, player_blackjack_string, player_score)
+    # ic(computer_hand, computer_blackjack_string, computer_score)
 
-    ic('=============== GET A0 =============== ')
+    # ic('=============== GET A0 =============== ')
 
     is_more = 'y'
     while is_more == 'y' and player_blackjack_string == 'None':
@@ -91,45 +94,48 @@ def blackjack_game() -> tuple[int, list[str], list[str]]:
         if is_more == 'y':
             current_deck, player_hand = step(1, current_deck, player_hand)
             _, player_score = utils.get_score(player_hand)
+            print(f'The card is {player_hand[-1]}, your hand {player_hand}, score {player_score}')
+
         if player_score > 21:
             is_more = 'n'
 
-        ic(type(player_blackjack_string))
-        ic(player_hand, player_blackjack_string, player_score)
-        ic(computer_hand, computer_blackjack_string, computer_score)
+        
+        # ic(type(player_blackjack_string))
+        # ic(player_hand, player_blackjack_string, player_score)
+        # ic(computer_hand, computer_blackjack_string, computer_score)
 
-    ic('=============== GET A1 =============== ')
+    # ic('=============== GET A1 =============== ')
 
     # check if player has blackjack, the game is finished here
     if player_blackjack_string != 'None' or computer_blackjack_string != 'None':
         blackjack_result = compare_blackjack(player_blackjack_string, computer_blackjack_string)
         return blackjack_result, player_hand, computer_hand
 
-    ic('=============== GET A2 =============== ')
+    # ic('=============== GET A2 =============== ')
 
     # computer analysis and get cards
     # the case player got 5 cards under 21
     if len(player_hand) == 5 and player_score <= 21:
         return 1, player_hand, computer_hand
     
-    ic('=============== GET A3 =============== ')
+    # ic('=============== GET A3 =============== ')
 
     # the case the computer is lower than 15, not legal
     while computer_score < 15:
         current_deck, computer_hand = step(1, current_deck, computer_hand)
         _, computer_score = utils.get_score(computer_hand)
 
-    ic('=============== GET A4 =============== ')   
+    # ic('=============== GET A4 =============== ')
 
     # keep withdrawing card if computer < player
-    countc = 0
+    # countc = 0
     while computer_score > 0 and computer_score < player_score:
-        print(f'The step {countc}')
-        ic('Now', len(current_deck))
+        # print(f'The step {countc}')
+        # ic('Now', len(current_deck))
         current_deck, computer_hand = step(1, current_deck, computer_hand)
         _, computer_score = utils.get_score(computer_hand)
-        ic(computer_hand)
-        ic(computer_score)
+        # ic(computer_hand)
+        # ic(computer_score)
 
 
     print(f"Your final hand: {player_hand}, final score: {player_score}")

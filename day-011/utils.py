@@ -53,7 +53,7 @@ def get_value(card):
     return CARD_NAMES_VALUES[card.split("-")[0]]
 
 
-def draw(deck_of_cards) -> tuple:
+def draw(deck_of_cards) -> tuple[str, list[str]]:
     """ Draw a random card from the deck of card
 
     Args:
@@ -98,10 +98,10 @@ def get_score(list_of_cards) -> tuple[str, int]:
     else:
         blackjack_string = 'None'
         possible_scores = [x for x in score_all(list_names.copy()) if x <= 21]
-        ic(possible_scores)
+        # ic(possible_scores)
         total_score = max(possible_scores) if len(possible_scores) > 0 else 0
     return blackjack_string, total_score
-                
+      
 
 def score_aces(number_of_aces) -> list[int]:
     """ Return all possible scores of aces
