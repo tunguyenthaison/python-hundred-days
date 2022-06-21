@@ -1,5 +1,5 @@
 # utilities for Calculator
-
+from os import system, name
 
 def clear():
     """Clear the command promt

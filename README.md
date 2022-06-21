@@ -23,4 +23,8 @@ A repo for learning the course 100 days with Python by Angela Yu
 * Day 009: dictionaries, nesting
 * Day 010: nested loops, functions with outputs
 * Day 011: Blackjack game
+* Day 012: Scope of variables
+* Day 013: Debugging 
+* Day 014: Lower-Higher game
+
 
