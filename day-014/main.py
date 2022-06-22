@@ -56,12 +56,21 @@ def higher_lower_game(number_of_lives, data) -> None:
     """
     score = 0
     lives = number_of_lives
-    cur_data = get_item(data)
-    data.remove(cur_data) # make sure this entry does not appear again
+
     game_should_continue = True
     player_choice = None # to save the last choice
     is_correct = None # to save the last choice
     while game_should_continue:
+        cur_data = get_item(data)
+        # data.remove(cur_data) # make sure this entry does not appear again
+        new_data = get_item(data)
+        # data.remove(new_data) # make sure this entry does not appear again
+
+        # swwapping to make the game more interesting
+        cur_data = new_data
+        new_data = get_item(data)
+
+        # the graphic part
         utils.clear()
         print(art.LOGO)
         # print('==============================================================')
@@ -83,8 +92,7 @@ def higher_lower_game(number_of_lives, data) -> None:
                 f"COUNTRY   : {cur_data['country']}"
         # The Game Play
         # print(f'You have {lives} left!')
-        new_data = get_item(data)
-        data.remove(new_data) # make sure this entry does not appear again
+
         # data entry for new data
         new_descript = new_data['description'].split(" ")[0]
         b_str = "\n" +\
