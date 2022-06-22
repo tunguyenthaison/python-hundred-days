@@ -28,5 +28,6 @@ A repo for learning the course 100 days with Python by Angela Yu
 * Day 014: Lower-Higher game
     - [ ] (06-21-22) Fix the position of current entry in the `PrettyTable`
     - [ ] (06-21-22) Update to web scrapping with Twitter count, the data provided by  Angela's course is *super outdated*.
+    - [ ] Rewrite the code to functions in a better way, write a function to format data into table and print, a `check_answer` function (that includes functionaliy of the compare function in the current code, simply comparing two data entries -- redundant).
 
 
