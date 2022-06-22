@@ -26,5 +26,7 @@ A repo for learning the course 100 days with Python by Angela Yu
 * Day 012: Scope of variables
 * Day 013: Debugging 
 * Day 014: Lower-Higher game
+    - [ ] (06-21-22) Fix the position of current entry in the `PrettyTable`
+    - [ ] (06-21-22) Update to web scrapping with Twitter count, the data provided by  Angela's course is *super outdated*.
 
 
