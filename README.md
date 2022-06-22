@@ -14,8 +14,8 @@ A repo for learning the course 100 days with Python by Angela Yu
 * Day 002: data types, numbers, operations, type conversion, f-Strings
 * Day 003: control flow
 * Day 004: randomisation
-    - Added some simple exception handling for entering 0, 1, 2 and Yes/No
-    - Publish [repl](https://replit.com/@tunguyenthaison/RockPaperScissorsASCII?v=1)
+    - [x] (06-18-22) Added some simple exception handling for entering 0, 1, 2 and Yes/No
+    - [x] (06-18-22) Publish [repl](https://replit.com/@tunguyenthaison/RockPaperScissorsASCII?v=1)
 * Day 005: randomisation with `random.sample` and `random.choices`
 * Day 006: functions
 * Day 007: condition - the hangman game with ascii art
@@ -26,5 +26,7 @@ A repo for learning the course 100 days with Python by Angela Yu
 * Day 012: Scope of variables
 * Day 013: Debugging 
 * Day 014: Lower-Higher game
+    - [ ] (06-21-22) Fix the position of current entry in the `PrettyTable`
+    - [ ] (06-21-22) Update to web scrapping with Twitter count, the data provided by  Angela's course is *super outdated*.
 
 
