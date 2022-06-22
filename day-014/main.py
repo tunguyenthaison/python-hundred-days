@@ -1,8 +1,6 @@
 """ The Higher-Lower game ASCII
 """
 import random
-
-from tomlkit import table
 import art
 import game_data
 import utils
@@ -23,27 +21,41 @@ def get_item(data) -> dict:
     return random.choice(data)
 
 
-def correct_choice(dataA, dataB) -> tuple[str, dict]:
-    """Return A if dataA has higher count, B otherwise, and A if they are the same
+def correct_choice(data_a, data_b) -> tuple[str, dict]:
+    """Return A if data_a has higher count, B otherwise, and A if they are the same
 
     Args:
-        dataA (dict): data entry
-        dataB (dict): data entry
+        data_a (dict): data entry
+        data_b (dict): data entry
 
     Returns:
-        str: A (dataA) or B (dataB), depend on what has higher count 
+        str: A (data_a) or B (data_b), depend on what has higher count
         dict: the higher data entry
     """
 
-    A_count, B_count = dataA['follower_count'], dataB['follower_count']
-    if A_count >= B_count:
-        return 'A', dataA
-    return 'B', dataB
+    count_a, count_b = data_a['follower_count'], data_b['follower_count']
+    if count_a >= count_b:
+        return 'A', data_a
+    return 'B', data_b
 
 
-def HigherLowerGame(LIVES, data) -> None:
+def higher_lower_game(number_of_lives, data) -> None:
+    """ The Higher-Lower Game: guessing number of Twitter followers
+
+    Args:
+        number_of_lives (int): number of guesses the player has
+        data (list[dict]): list of data, each entry is a dictionary of type
+            ```python
+            {
+                'name': 'Ariana Grande',
+                'follower_count': 183,
+                'description': 'Musician and actress',
+                'country': 'United States'
+            },
+            ```
+    """
     score = 0
-    lives = LIVES
+    lives = number_of_lives
     cur_data = get_item(data)
     data.remove(cur_data) # make sure this entry does not appear again
     game_should_continue = True
@@ -55,16 +67,16 @@ def HigherLowerGame(LIVES, data) -> None:
         # print('==============================================================')
         # The PrettyTable
         ascii_table = PrettyTable(border=True, padding_width=1)
-        art_A_fieldname = str("A".ljust(35))
-        art_B_fieldname = str("B".ljust(35))
-        art_C_fieldname = str("Record".ljust(15))
-        ascii_table.field_names = [art_A_fieldname, art_B_fieldname, art_C_fieldname]
-        ascii_table.align[art_A_fieldname] = 'l'
-        ascii_table.align[art_B_fieldname] = 'l'
-        ascii_table.align[art_C_fieldname] = 'l'
+        art_a_fieldname = str("A".ljust(35))
+        art_b_fieldname = str("B".ljust(35))
+        art_c_fieldname = str("Record".ljust(15))
+        ascii_table.field_names = [art_a_fieldname, art_b_fieldname, art_c_fieldname]
+        ascii_table.align[art_a_fieldname] = 'l'
+        ascii_table.align[art_b_fieldname] = 'l'
+        ascii_table.align[art_c_fieldname] = 'l'
         # data entry for current data
         cur_descript = cur_data['description'].split(" ")[0]
-        A_str = "\n" +\
+        a_str = "\n" +\
                 f"NAME      : {cur_data['name']}\n\n" +\
                 f"FOLLOWERS : {cur_data['follower_count']}\n\n" +\
                 f"CATEGORY  : {cur_descript}\n\n" +\
@@ -75,17 +87,17 @@ def HigherLowerGame(LIVES, data) -> None:
         data.remove(new_data) # make sure this entry does not appear again
         # data entry for new data
         new_descript = new_data['description'].split(" ")[0]
-        B_str = "\n" +\
+        b_str = "\n" +\
                 f"NAME      : {new_data['name']}\n\n" +\
-                f"FOLLOWERS : ????????\n\n" +\
+                "FOLLOWERS : ????????\n\n" +\
                 f"CATEGORY  : {new_descript}\n\n" +\
                 f"COUNTRY   : {new_data['country']}"
         # the record column in the table
-        C_str = "\n" +\
+        c_str = "\n" +\
                 f"LIVES        : {lives}\n\n" +\
                 f"SCORES       : {score}\n\n" +\
                 f"LAST CHOICE  : {player_choice} - {is_correct}\n\n"
-        ascii_table.add_row([A_str, B_str, C_str])
+        ascii_table.add_row([a_str, b_str, c_str])
         print(ascii_table)
         # print(f"A. {cur_data['name']}, {cur_data['follower_count']} followers")
         # print("v.s.")
@@ -104,21 +116,21 @@ def HigherLowerGame(LIVES, data) -> None:
             is_correct = False
         # update table
         ascii_table.clear_rows()
-        B_str = "\n" +\
+        b_str = "\n" +\
                 f"NAME      : {new_data['name']}\n\n" +\
                 f"FOLLOWERS : {new_data['follower_count']}\n\n" +\
                 f"CATEGORY  : {new_descript}\n\n" +\
                 f"COUNTRY   : {new_data['country']}"
-        C_str = "\n" +\
+        c_str = "\n" +\
                 f"LIVES        : {lives}\n\n" +\
                 f"SCORES       : {score}\n\n" +\
                 f"LAST CHOICE  : {player_choice} - {is_correct}\n\n"
-        # table.field_names = [art_A_fieldname, art_B_fieldname, art_C_fieldname]
-        ascii_table.add_row([A_str, B_str, C_str])
+        # table.field_names = [art_a_fieldname, art_b_fieldname, art_c_fieldname]
+        ascii_table.add_row([a_str, b_str, c_str])
         utils.clear()
         print(art.LOGO)
         # print('==============================================================')
-        print(ascii_table)             
+        print(ascii_table)
         cur_data = right_data
         if lives == 0:
             game_should_continue = False
@@ -127,4 +139,4 @@ def HigherLowerGame(LIVES, data) -> None:
 
 
 if __name__ == "__main__":
-    HigherLowerGame(5, game_data.data)
+    higher_lower_game(5, game_data.data)

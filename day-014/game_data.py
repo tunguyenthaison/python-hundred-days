@@ -1,3 +1,5 @@
+""" Data from the Python course
+"""
 data = [
     {
         'name': 'Instagram',
