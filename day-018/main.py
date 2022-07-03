@@ -20,6 +20,8 @@ def hirst_painting(size: int = 2, step_distance: int = 50):
     walker.speed('fastest')
     walker.pensize(2)
     screen = turtle.Screen()
+    screen.bgcolor("white")
+    screen.setup(width=500, height=500)
     screen.title("Hirst's style painting")
 
     width, height = screen.window_width(), screen.window_height()
