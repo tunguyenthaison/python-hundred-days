@@ -2,23 +2,10 @@ from turtle import Screen, Turtle, TurtleScreen
 from icecream import ic
 
 
-def dashed_line_forward(turtle_obj: Turtle, distance: float, dash_size: float):
-    cur_dist = 0
-    while cur_dist < distance:
-        turtle_obj.pendown()
-        turtle_obj.forward(dash_size)
-        cur_dist += dash_size
-
-        turtle_obj.penup()
-        turtle_obj.forward(dash_size)
-        cur_dist += dash_size
 
 
-def polygon(turtle_obj: Turtle, n: int, length: float):
-    angle = 360 / n
-    for _ in range(0, n):
-        turtle_obj.forward(length)
-        turtle_obj.right(angle)
+
+
         
 
 

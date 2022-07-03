@@ -3,7 +3,8 @@
 ## Day 018: Hirst Painting
 
 --- 
-* [ ] color generator  
+* [x] color generator using `colour` library
+* [x] random walk with option of bounding box
 
 ---
 

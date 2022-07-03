@@ -21,7 +21,8 @@ A repo for learning the course 100 days with Python by Angela Yu
 * Day 007: condition - the hangman game with ascii art
 * Day 008: more on functions
 * Day 009: dictionaries, nesting
-* Day 010: nested loops, functions with outputs
+* Day 010: nested loops, functions with outputs 
+    - [ ] unit testing sample code from Angela Yu
 * Day 011: Blackjack game
 * Day 012: Scope of variables
 * Day 013: Debugging 
@@ -33,7 +34,8 @@ A repo for learning the course 100 days with Python by Angela Yu
 * Day 016-017: OOP theory, 
     - [x] coffee maker OOP for day 16
     - [x] terminal quiz game OOP with data retrived from Open Trivia API, using regex and json to change the number of questions
-* Day 018: The `turtle` module
+* Day 018: The `turtle` module, 
+    - [x] libraries `colour`, `colorgram`
 * Day 019: More on OOP, instances, states, ...
 * Day 020-021: The snake game using `turtle` module
 
