@@ -40,7 +40,9 @@ def is_in_box(x: int, y: int, width: int, height: int) -> bool:
     return (x >= -X_max and x <= X_max and y >= -Y_max and y <= Y_max)
 
 
-def dashed_line_forward(turtle_obj: turtle.Turtle, distance: float, dash_size: float) -> None:
+def dashed_line_forward(turtle_obj: turtle.Turtle,
+                        distance: float,
+                        dash_size: float) -> None:
     cur_dist = 0
     while cur_dist < distance:
         turtle_obj.pendown()
@@ -52,7 +54,10 @@ def dashed_line_forward(turtle_obj: turtle.Turtle, distance: float, dash_size: f
         cur_dist += dash_size
 
 
-def random_walk(duration: int, step_size: int = 5, pensize: int = 5, reflex=False) -> None:
+def random_walk(duration: int,
+                step_size: int = 5,
+                pensize: int = 5,
+                reflex=False) -> None:
     """Draw a random walk with the turtle module
 
     Args:
