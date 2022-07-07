@@ -5,8 +5,9 @@
 --- 
 * [x] color generator using `colour` library
 * [x] random walk with option of bounding box
-
+* [x] Hirst's painting
+![](/day-018/output.gif)
 ---
 
-## Objectives:
-* 
+## Animation
+* Using `PIL`, not very smooth -- need to double check

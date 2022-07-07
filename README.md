@@ -35,7 +35,8 @@ A repo for learning the course 100 days with Python by Angela Yu
     - [x] coffee maker OOP for day 16
     - [x] terminal quiz game OOP with data retrived from Open Trivia API, using regex and json to change the number of questions
 * Day 018: The `turtle` module, 
-    - [x] libraries `colour`, `colorgram`
+    - [x] libraries `colour`, `colorgram` 
+    - [ ] do animation
 * Day 019: More on OOP, instances, states, ...
 * Day 020-021: The snake game using `turtle` module
 
