@@ -51,21 +51,28 @@ def hirst_painting(size: int = 2, step_distance: int = 50):
     # initialize y-position
     y = 0
     while y < y_steps:
+
         # reset current x-position
         x = 0
         while x < x_steps:
+
+            # change format of the string for frame_index 
+            frame_index_str = str(frame_index).rjust(2, '0')
+
             walker.dot(size, random.choice(colors_rgb))
             walker.forward(step_distance)
             x += 1
 
             # save the frame
             cv = turtle.getcanvas()
-            ps_name = os.path.join("./day-018/ps_outs", f'out_{frame_index}.ps')
+
+            ps_name = os.path.join("./day-018/ps_outs",
+                                   'out_' + frame_index_str + '.ps')
             cv.postscript(file=ps_name,
                           colormode='color')
             psimage = Image.open(ps_name)
             png_name = os.path.join("./day-018/png_outs",
-                                    f'out_{frame_index}.png')
+                                    'out_' + frame_index_str + '.png')
             psimage.save(png_name)
             frame_index += 1
 
@@ -84,6 +91,7 @@ if __name__ == "__main__":
     # Create the frames
     frames = []
     imgs = glob.glob("./day-018/png_outs/*.png")
+    ic(imgs)
     for img in imgs:
         new_frame = Image.open((img))
         frames.append(new_frame)
@@ -93,5 +101,5 @@ if __name__ == "__main__":
                    format='gif',
                    append_images=frames[1:],
                    save_all=True,
-                   duration=10,
+                   duration=100,
                    loop=0)

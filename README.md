@@ -2,13 +2,17 @@
 A repo for learning the course 100 days with Python by Angela Yu
 ---
 
+## Showcase
+* Day 018: animation with Hirst's style painting using `turtle` (`Tkinter` underlying)
+    ![](/day-018/output.gif)
+
 ## Resources
 - Diagram plotting: `https://app.diagrams.net/`
 - ASCII art: `https://ascii.co.uk/animated/`
 - ASCII banner: `https://manytools.org/hacker-tools/ascii-banner/`
 
 
-## Record
+## Records
 
 * Day 001: input and print functions, string manipulation
 * Day 002: data types, numbers, operations, type conversion, f-Strings
@@ -36,7 +40,7 @@ A repo for learning the course 100 days with Python by Angela Yu
     - [x] terminal quiz game OOP with data retrived from Open Trivia API, using regex and json to change the number of questions
 * Day 018: The `turtle` module, 
     - [x] libraries `colour`, `colorgram` 
-    - [ ] do animation
+    - [ ] do animation - note that the `gif` file could mess up the order `1`, `10` and then `1`,`2`, ... That is why the animation is not smooth!
 * Day 019: More on OOP, instances, states, ...
 * Day 020-021: The snake game using `turtle` module
 

@@ -10,4 +10,4 @@
 ---
 
 ## Animation
-* Using `PIL`, not very smooth -- need to double check
+* Using `PIL`, not very smooth -- need to double check! Found it! The order is not right!
