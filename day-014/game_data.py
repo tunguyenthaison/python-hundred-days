@@ -1,4 +1,4 @@
-""" Data from the Python course
+""" Data from the Python course, a list of dictionaries
 """
 data = [
     {

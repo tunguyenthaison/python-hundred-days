@@ -13,7 +13,7 @@ def get_item(data) -> dict:
     """ Return a random entry from a list of data
 
     Args:
-        data (list[dict]): list of data
+        data (list[dict]): list of data, each entry of the list is a dictionary
 
     Returns:
         dict: an entry of data
